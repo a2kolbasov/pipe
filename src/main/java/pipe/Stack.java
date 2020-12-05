@@ -34,10 +34,9 @@ public class Stack {
     }
 
     public int[] getData() {
-        int[] data = new int[pointer];
+        final int[] data = new int[pointer];
         for (int i = 0; i < data.length; i++) {
-            // reverse copy
-            data[data.length - i - 1] = Short.toUnsignedInt(stack[i]);
+            data[i] = Short.toUnsignedInt(stack[i]);
         }
         return data;
     }

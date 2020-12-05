@@ -25,7 +25,6 @@ public class TestProcessorArithmetic {
                 .build()
         );
         processor.step().step();
-        Assert.assertArrayEquals(new int[]{2, 3}, processor.getStack().getData());
         Assert.assertArrayEquals(new int[]{5}, processor.step().getStack().getData());
     }
 

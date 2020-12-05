@@ -46,6 +46,6 @@ public class TestStack {
     public void getData() {
         stack.push(5);
         stack.push(8);
-        Assert.assertArrayEquals(new int[]{8, 5}, stack.getData());
+        Assert.assertArrayEquals(new int[]{5, 8}, stack.getData());
     }
 }
