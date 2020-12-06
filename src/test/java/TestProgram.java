@@ -13,7 +13,7 @@ public class TestProgram {
 
     @Test
     public void somethink() {
-        val program = "PUSH 5 PUSH 4 ADD PUSH 20 WRITE";
+        val program = "PUSH 5 PUSH 4 ADD PUSH 20 WRITE HLT";
         val processor = new Processor(program).run();
 
         Assert.assertEquals(9, processor.getRam().get(20));

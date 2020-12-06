@@ -22,6 +22,7 @@ public class TestProcessorArithmetic {
                 .add(Command.PUSH).add(3)
                 .add(Command.PUSH).add(2)
                 .add(Command.ADD)
+                .add(Command.HLT)
                 .build()
         );
         processor.step().step();
@@ -34,6 +35,7 @@ public class TestProcessorArithmetic {
                 .add(Command.PUSH).add(0xffff)
                 .add(Command.PUSH).add(2)
                 .add(Command.ADC)
+                .add(Command.HLT)
                 .build()
         );
         processor.run();
