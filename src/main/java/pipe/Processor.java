@@ -6,6 +6,7 @@ package pipe;
 
 import lombok.Getter;
 import lombok.extern.java.Log;
+import lombok.val;
 
 @Log
 public class Processor {
@@ -129,8 +130,8 @@ public class Processor {
                 popToB();
                 popToA();
                 alu.MUL();
-                pushGreatestBits();
                 pushLeastBits();
+                pushGreatestBits();
                 break;
             case ADC:
                 popToB();
@@ -147,36 +148,73 @@ public class Processor {
             case WRITE:
                 ram.set(stack.pop(), stack.pop());
                 break;
-            case DUP:
-            {
-                int data = stack.pop();
+            case DUP: {
+                val data = stack.pop();
                 stack.push(data);
                 stack.push(data);
-            }
                 break;
+            }
             case DROP:
                 stack.pop();
                 break;
-            case LDC:
-                counter = (short) stack.pop();
-                break;
-            case STC:
+            case LDC: {
+                val counter = stack.pop();
                 stack.push(counter);
+                this.counter = (short) counter;
                 break;
-            case CMP:
-                popToB();
-                popToA();
-                alu.SUB();
+            }
+            case STC:
+                stack.push(this.counter);
+                break;
+            case CMP: {
+                val b = stack.pop();
+                val a = stack.pop();
+                stack.push(a);
+                stack.push(b);
+                alu.setA(a).setB(b).SUB();
+                break;
+            }
             case JMP:
-                pc = (short) (stack.pop() - 1);
+                this.pc = (short) this.ram.get(++this.pc);
                 break;
             case JZ:
-                if (alu.getFlags().isZero()) pc = (short) (stack.pop() - 1);
-                else pc++;
+                this.pc++;
+                if (alu.getFlags().isZero()) this.pc = (short) this.ram.get(this.pc);
                 break;
             case JC:
-                if (alu.getFlags().isCarry()) pc = (short) (stack.pop() - 1);
-                else pc++;
+                this.pc++;
+                if (alu.getFlags().isCarry()) this.pc = (short) this.ram.get(this.pc);
+                break;
+            case ROL: {
+                val c = stack.pop();
+                val b = stack.pop();
+                val a = stack.pop();
+                stack.push(b);
+                stack.push(c);
+                stack.push(a);
+                break;
+            }
+            case ROR: {
+                val c = stack.pop();
+                val b = stack.pop();
+                val a = stack.pop();
+                stack.push(c);
+                stack.push(a);
+                stack.push(b);
+                break;
+            }
+            case SWAP: {
+                val b = stack.pop();
+                val a = stack.pop();
+                stack.push(b);
+                stack.push(a);
+                break;
+            }
+            case LOOP:
+                this.pc++;
+                if (this.counter == 0 || --this.counter == 0) {
+                    this.pc = (short) this.ram.get(this.pc);
+                }
                 break;
             default:
                 throw new ProcessorException("Нереализованная команда");
