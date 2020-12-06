@@ -77,6 +77,7 @@ public class Processor {
     }
 
     private void exec(Command command) {
+        val initPc = getPc();
         switch (command) {
             case NON:
                 break;
@@ -236,8 +237,8 @@ public class Processor {
                 throw new ProcessorException("Нереализованная команда");
         }
         log.info(String.format(
-                "command: %s\npc: %s\nstack: %s\nflags: %s",
-                command, getPc(), getStack(), getAlu().getFlags()
+                "command: %s; pc: %s; counter: %s; stack: %s; flags: %s",
+                command, initPc, getCounter(), getStack(), getAlu().getFlags()
         ));
     }
 
