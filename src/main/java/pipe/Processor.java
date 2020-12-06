@@ -77,7 +77,6 @@ public class Processor {
     }
 
     private void exec(Command command) {
-        log.info(command.toString());
         switch (command) {
             case HLT:
                 break;
@@ -237,7 +236,10 @@ public class Processor {
             default:
                 throw new ProcessorException("Нереализованная команда");
         }
-        log.info(String.format("stack: %s\nflags: %s", getStack(), getAlu().getFlags()));
+        log.info(String.format(
+                "command: %s\npc: %s\nstack: %s\nflags: %s",
+                command, getPc(), getStack(), getAlu().getFlags()
+        ));
     }
 
     private void popToA() {
