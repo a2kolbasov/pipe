@@ -216,6 +216,24 @@ public class Processor {
                     this.pc = (short) this.ram.get(this.pc);
                 }
                 break;
+            case MAX: {
+                val b = stack.pop();
+                val a = stack.pop();
+                this.alu.setA(a).setB(b).SUB();
+                stack.push(
+                        this.alu.getFlags().isCarry() ? b : a
+                );
+            }
+                break;
+            case MIN: {
+                val b = stack.pop();
+                val a = stack.pop();
+                this.alu.setA(a).setB(b).SUB();
+                stack.push(
+                        this.alu.getFlags().isCarry() ? a : b
+                );
+            }
+                break;
             default:
                 throw new ProcessorException("Нереализованная команда");
         }
