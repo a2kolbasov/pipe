@@ -158,12 +158,9 @@ public class Processor {
             case DROP:
                 stack.pop();
                 break;
-            case LDC: {
-                val counter = stack.pop();
-                stack.push(counter);
-                this.counter = (short) counter;
+            case LDC:
+                this.counter = (short) stack.pop();
                 break;
-            }
             case STC:
                 stack.push(this.counter);
                 break;
