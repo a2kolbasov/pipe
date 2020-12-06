@@ -7,11 +7,13 @@ package pipe;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
 @Getter
 @Setter(value = AccessLevel.PROTECTED)
+@ToString
 public class Flags {
 
     /** Флаг переноса */

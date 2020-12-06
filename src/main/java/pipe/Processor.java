@@ -219,6 +219,7 @@ public class Processor {
             default:
                 throw new ProcessorException("Нереализованная команда");
         }
+        log.info(String.format("stack: %s\nflags: %s", getStack(), getAlu().getFlags()));
     }
 
     private void popToA() {
