@@ -78,6 +78,8 @@ public class Processor {
 
     private void exec(Command command) {
         switch (command) {
+            case NON:
+                break;
             case HLT:
                 break;
             case ADD:
@@ -174,15 +176,15 @@ public class Processor {
                 break;
             }
             case JMP:
-                this.pc = (short) this.ram.get(++this.pc);
+                this.pc = (short) (this.ram.get(++this.pc) - 1);
                 break;
             case JZ:
                 this.pc++;
-                if (alu.getFlags().isZero()) this.pc = (short) this.ram.get(this.pc);
+                if (alu.getFlags().isZero()) this.pc = (short) (this.ram.get(this.pc) - 1);
                 break;
             case JC:
                 this.pc++;
-                if (alu.getFlags().isCarry()) this.pc = (short) this.ram.get(this.pc);
+                if (alu.getFlags().isCarry()) this.pc = (short) (this.ram.get(this.pc) - 1);
                 break;
             case ROL: {
                 val c = stack.pop();
@@ -212,7 +214,7 @@ public class Processor {
             case LOOP:
                 this.pc++;
                 if (this.counter == 0 || --this.counter == 0) {
-                    this.pc = (short) this.ram.get(this.pc);
+                    this.pc = (short) (this.ram.get(this.pc) - 1);
                 }
                 break;
             case MAX: {
