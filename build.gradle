@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'io.freefair.lombok' version '5.3.0'
+//    id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
 
 group 'ru.mirea.edu.kolbasov'
@@ -17,7 +18,16 @@ dependencies {
 test {
     useJUnit()
 }
-
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'Main',
+                'Implementation-Title': archiveBaseName,
+                'Implementation-Version': archiveVersion,
+        )
+    }
+}
+//ext.mainClass = "main.java.Main"
 compileJava.options.encoding = 'UTF-8'
 compileJava.sourceCompatibility = "1.8"
 compileJava.targetCompatibility = "1.8"
