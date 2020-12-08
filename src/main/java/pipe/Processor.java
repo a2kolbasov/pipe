@@ -168,8 +168,8 @@ public class Processor {
             case CMP: {
                 val b = stack.pop();
                 val a = stack.pop();
-                stack.push(a);
-                stack.push(b);
+//                stack.push(a);
+//                stack.push(b);
                 alu.setA(a).setB(b).SUB();
                 break;
             }
