@@ -132,8 +132,8 @@ public class Processor {
                 popToB();
                 popToA();
                 alu.MUL();
-                pushLeastBits();
                 pushGreatestBits();
+                pushLeastBits();
                 break;
             case ADC:
                 popToB();
