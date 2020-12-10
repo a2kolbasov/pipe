@@ -211,8 +211,7 @@ public class Processor {
             }
             case LOOP:
                 this.pc++;
-                if (this.counter != 0) {
-                    this.counter--;
+                if (this.counter != 0 && --this.counter != 0) {
                     this.pc = (short) (this.ram.get(this.pc) - 1);
                 }
                 break;
